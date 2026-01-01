@@ -1,0 +1,81 @@
+/**
+ * Sidebar Fixes - Override conflicts
+ */
+
+/* Ensure FontAwesome icons render properly */
+.sidebar .nav-item .nav-link i.fas,
+.sidebar .nav-item .nav-link i.far,
+.sidebar .nav-item .nav-link i.fab,
+.sidebar .nav-item .nav-link i.fal,
+.sidebar .nav-item .nav-link i.fad,
+.sidebar .nav-item .nav-link i {
+    font-family: "Font Awesome 5 Free" !important;
+    font-weight: 900 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    speak: none;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+}
+
+.sidebar .nav-item .nav-link i.far {
+    font-weight: 400 !important;
+}
+
+/* Fix sidebar width overrides */
+@media (min-width: 768px) {
+    .sidebar {
+        width: var(--sidebar-width-expanded) !important;
+    }
+    
+    .sidebar.collapsed,
+    body.sidebar-toggled .sidebar,
+    .sidebar.toggled {
+        width: var(--sidebar-width-collapsed) !important;
+    }
+}
+
+/* Fix collapsed state visibility */
+.sidebar.collapsed .nav-item .nav-link {
+    justify-content: center !important;
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+}
+
+.sidebar.collapsed .nav-item .nav-link i {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* Logo fixes */
+.sidebar-brand .logo-container img {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    width: auto !important;
+    height: auto !important;
+}
+
+.sidebar.collapsed .sidebar-brand .logo-container {
+    width: 50px !important;
+    height: 50px !important;
+    padding: 0.3rem !important;
+}
+
+/* Override sb-admin-2 sidebar width defaults */
+@media (min-width: 768px) {
+    .sidebar {
+        width: var(--sidebar-width-expanded) !important;
+    }
+    
+    .sidebar.collapsed,
+    body.sidebar-toggled .sidebar,
+    .sidebar.toggled {
+        width: var(--sidebar-width-collapsed) !important;
+    }
+}
+
