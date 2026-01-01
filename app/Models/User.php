@@ -36,6 +36,7 @@ class User extends Authenticatable
         'otp_code',
         'otp_expires_at',
         'commenter_id',
+        'area_id',
     ];
 
     /**
@@ -112,6 +113,11 @@ class User extends Authenticatable
     public function commenterListing()
     {
         return $this->belongsTo(Listing::class, 'commenter_id');
+    }
+
+    public function area()
+    {
+        return $this->belongsTo(Area::class);
     }
 
     /**

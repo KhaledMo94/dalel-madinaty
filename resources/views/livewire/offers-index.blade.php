@@ -3,13 +3,15 @@
 @endphp
 
 <div wire:id="{{ $this->getId() }}">
-    <div class="mb-3 row">
+    <div class="mb-3 row align-items-end">
         <div class="col-md-4">
-            <input type="text" wire:model.live.debounce.300ms="search" class="form-control"
+            <label for="search" class="form-label font-weight-bold mb-1">{{ __('Search') }}</label>
+            <input type="text" id="search" wire:model.live.debounce.300ms="search" class="form-control"
                 placeholder="{{ __('Search by content or listing name...') }}">
         </div>
         <div class="col-md-3">
-            <select wire:model.live="listingFilter" class="form-control">
+            <label for="listingFilter" class="form-label font-weight-bold mb-1">{{ __('Listing') }}</label>
+            <select id="listingFilter" wire:model.live="listingFilter" class="form-control">
                 <option value="all">{{ __('All Listings') }}</option>
                 @foreach ($this->listings ?? [] as $listing)
                     <option value="{{ $listing->id }}">{{ $listing->getTranslation('name', app()->getLocale()) }}
@@ -18,16 +20,14 @@
             </select>
         </div>
         <div class="col-md-2">
-            <label class="sr-only" for="startDateFilter">{{ __('Start Date') }}</label>
-            <input type="date" id="startDateFilter" wire:model.live="startDateFilter" class="form-control"
-                placeholder="{{ __('Start Date') }}">
+            <label for="startDateFilter" class="form-label font-weight-bold mb-1">{{ __('From') }}</label>
+            <input type="date" id="startDateFilter" wire:model.live="startDateFilter" class="form-control">
         </div>
         <div class="col-md-2">
-            <label class="sr-only" for="endDateFilter">{{ __('End Date') }}</label>
-            <input type="date" id="endDateFilter" wire:model.live="endDateFilter" class="form-control"
-                placeholder="{{ __('End Date') }}">
+            <label for="endDateFilter" class="form-label font-weight-bold mb-1">{{ __('To') }}</label>
+            <input type="date" id="endDateFilter" wire:model.live="endDateFilter" class="form-control">
         </div>
-        <div class="col-md-1 d-flex align-items-end">
+        <div class="col-md-1">
             @if ($startDateFilter || $endDateFilter)
                 <button type="button" wire:click="clearDateFilters" class="btn btn-sm btn-secondary w-100"
                     title="{{ __('Clear Date Filters') }}">

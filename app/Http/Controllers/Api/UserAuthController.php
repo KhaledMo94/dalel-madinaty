@@ -19,14 +19,12 @@ class UserAuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'name'                      => 'required|string|max:255',
-            'country_code'              => 'nullable|string|max:5',
-            'phone_number'              => 'required|string|max:15',
-            'image'                     => 'nullable|image|max:2048',
-            'password'                  => ['required', Password::min(8)],
-            're_password'               => 'required|same:password',
-            'sales_code'                => 'nullable|exists:sale_codes,name',
-            'type'                 => 'required|string|in:user,merchant',
+            'name'                  => 'required|string|max:255',
+            'phone_number'          => 'required|string|max:15',
+            'password'              => ['required', Password::min(8)],
+            'password_confirmation' => 'required|same:password',
+            'image'                 => 'nullable|image|max:2048',
+            'area_id'               => 'required|exists:areas,id',
         ]);
 
         $country_code = $request->country_code ?? '+20';
@@ -57,16 +55,13 @@ class UserAuthController extends Controller
             $image_path = $filename;
         }
 
-        $sale_code = SaleCode::where('name', $request->sales_code)->first();
-
         $user = User::create([
             'name'                      => $request->name,
             'country_code'              => $country_code,
             'phone_number'              => $request->phone_number,
             'image'                     => $image_path,
             'password'                  => Hash::make($request->password),
-            'sale_code_id'              => $sale_code ?$sale_code->id : null,
-            'type'                      => $request->type,
+            'area_id'                   => $request->area_id,
         ]);
 
         $auth_token = $user->createToken('auth_token')->plainTextToken;
@@ -81,12 +76,11 @@ class UserAuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'country_code'                  => 'nullable|string|max:5',
             'phone_number'                  => 'required|string|max:15|exists:users,phone_number',
             'password'                      => 'required|min:8',
         ]);
 
-        $country_code = $request->country_code ?? '+20';
+        $country_code = '+20';
 
         $user = User::where('country_code', $country_code)
             ->where('phone_number', $request->phone_number)
@@ -155,12 +149,11 @@ class UserAuthController extends Controller
     public function update(Request $request)
     {
         $user = Auth::guard('sanctum')->user();
+
         $request->validate([
             'name'        => "sometimes|required|max:255",
             'image'       => 'sometimes|nullable|image|max:2048',
-            'email'       => ['sometimes','email',Rule::unique('users','email')->ignore($user->id)],
-            'password'    => ['sometimes', 'required', Password::min(8)],
-            're_password' => 'sometimes|required_with:password|same:password',
+            'area_id'     => 'sometimes|required|exists:areas,id',
         ]);
 
         if ($request->hasFile('image')) {
@@ -183,12 +176,8 @@ class UserAuthController extends Controller
             $user->name = $request->name;
         }
 
-        if ($request->filled('email')) {
-            $user->email = $request->email;
-        }
-
-        if ($request->has('password')) {
-            $user->password = Hash::make($request->password);
+        if ($request->filled('area_id')) {
+            $user->area_id = $request->area_id;
         }
 
         $user->save();
@@ -201,19 +190,6 @@ class UserAuthController extends Controller
         return preg_match('/users\/[a-f0-9]{13,}\.png$/', $imagePath);
     }
 
-    public function myQrcode()
-    {
-        $user = Auth::guard('sanctum')->user();
-
-        return response()->json($user->qr_code);
-    }
-
-    public function myReferralCode()
-    {
-        $user = Auth::guard('sanctum')->user();
-
-        return response()->json($user->referral_code);
-    }
 
     public function user()
     {

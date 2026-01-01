@@ -25,7 +25,9 @@ class OfferController extends Controller
         $radius = $request->query('radius') ?? 5;
 
         $offers = Offer::with([
-            'listingBranch.listing'
+            'listingBranch.listing' => function ($query) {
+                $query->withIsLiked();
+            }
         ])->whereHas('listingBranch', function ($query) use ($radius) {
             $query->having('distance', '<=', $radius);
         })->whereHas('listingBranch.listing.category',function($query) use ($request){

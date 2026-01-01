@@ -218,10 +218,18 @@
         @if(auth()->user()->hasRole('super-admin') || auth()->user()->can('offers'))
             <li class="nav-item {{ Route::is('admins.offers.*') ? 'active' : '' }}"
                 data-tooltip="{{ __('Offers Section') }}">
-                <a class="nav-link" href="{{ route('admins.offers.index') }}">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseoffers"
+                    aria-expanded="true" aria-controls="collapseoffers">
                     <i class="fas fa-fw fa-gift"></i>
                     <span>{{ __('Offers Section') }}</span>
                 </a>
+                <div id="collapseoffers" class="collapse {{ Route::is('admins.offers.*') ? 'show' : '' }}"
+                    aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="py-2 bg-white rounded collapse-inner">
+                        <a class="collapse-item" href="{{ route('admins.offers.index') }}">{{ __('All Offers') }}</a>
+                        <a class="collapse-item" href="{{ route('admins.offers.create') }}">{{ __('Create Offer') }}</a>
+                    </div>
+                </div>
             </li>
         @endif
 

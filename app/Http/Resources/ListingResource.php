@@ -27,12 +27,16 @@ class ListingResource extends JsonResource
             'file'                      => $this->file ? asset('storage/' . $this->file) : null,
             'amenities'                 => AmenityResource::collection($this->whenLoaded('amenities')),
             'users'                     => UserResource::collection($this->whenLoaded('users')),
-            'is_liked'                  => $this->is_liked,
             'branches'                  => ListingBranchResource::collection($this->whenLoaded('branches')),
             'nearest_branch'            => new ListingBranchResource($this->whenLoaded('nearestListingBranch')),
             'tt_link'                   => $this->tt_link,
             'fb_link'                   => $this->fb_link,
             'insta_link'                   => $this->insta_link,
+            'offers'                      => OfferResource::collection($this->whenLoaded('offers')),
+            'avg_rating'                  => $this->whenAggregated('ratings', 'rating', 'avg'),
+            'ratings_count'               => $this->whenCounted('ratings') ?? 0,
+            'images'                      => ListingImageResource::collection($this->whenLoaded('images')),
+            'is_liked'                    => $this->is_liked ?? false,
         ];
     }
 }

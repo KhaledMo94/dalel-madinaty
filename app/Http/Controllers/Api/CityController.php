@@ -22,7 +22,6 @@ class CityController extends Controller
         $request->validate([
             'q'                 =>'required|string',
         ]);
-
         $locale = app()->getLocale();
         $search = "%{$request->query('q')}%";
         $cities = City::where("name->{$locale}",'LIKE',$search)

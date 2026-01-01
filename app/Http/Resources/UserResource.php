@@ -18,14 +18,16 @@ class UserResource extends JsonResource
         return [
             'id'                        => $this->id,
             'name'                      => $this->name,
-            'email'                     => $this->email,
             'phone'                     => $this->phone,
-            'type'                      => $this->type,
             'image'                     => $this->image ? asset('storage/' . $this->image) : null,
-            'listing'                   => new ListingResource($this->whenLoaded('listing')),
-            'is_phone_verified'         => $this->phone_verified_at ? true : false ,
-            'valid'                     => $this->valid,
-            'has_listing'               => $this->has_listing,
+            'area_id'                   => $this->area_id,
+            'area'                      => new AreaResource($this->whenLoaded('area')),
+            'phone_verified'         => $this->phone_verified_at ? true : false,
+            'listings_count'         => $this->whenCounted('listings') ?? 0,
+            'ratings_count'         => $this->whenCounted('ratings') ?? 0,
+            // 'comments_count'         => $this->whenCounted('comments') ?? 0,
+            'commenter_listing'         => new ListingResource($this->whenLoaded('commenterListing')),
+
         ];
     }
 }

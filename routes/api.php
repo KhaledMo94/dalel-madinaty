@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Route;
 use App\Models\GeneralSetting;
 
 
-Route::post('register', [UserAuthController::class, 'register'])->middleware('throttle:10,1');
+// Registration disabled
+// Route::post('register', [UserAuthController::class, 'register'])->middleware('throttle:10,1');
 Route::post('login', [UserAuthController::class, 'login'])->middleware('throttle:5,1');
 Route::get('cities', [CityController::class, 'allCities'])->middleware('throttle:30,1');
 Route::get('cities/search', [CityController::class, 'search'])->middleware('throttle:30,1');

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Builder;
 use Spatie\Translatable\HasTranslations;
 
 class Listing extends Model
@@ -30,6 +31,7 @@ class Listing extends Model
         'tt_link',
         'insta_link'
     ];
+
 
     public function banners()
     {
@@ -94,6 +96,37 @@ class Listing extends Model
     public function commenterUsers()
     {
         return $this->hasMany(User::class, 'commenter_id');
+    }
+
+    public function scopeActive(Builder $query)
+    {
+        return $query->where('status', 'active');
+    }
+
+    public function scopeInactive(Builder $query)
+    {
+        return $query->where('status', 'inactive');
+    }
+
+    public function scopeWithIsLiked(Builder $query, ?int $userId = null): Builder
+    {
+        $userId ??= Auth::guard('sanctum')->id();
+
+        if (! $userId) {
+            return $query->addSelect([
+                'is_liked' => DB::raw('false')
+            ]);
+        }
+
+        return $query->withExists([
+            'users as is_liked' => fn ($q) =>
+                $q->where('users.id', $userId)
+        ]);
+    }
+
+    public function getIsLikedAttribute(): bool
+    {
+        return (bool) ($this->attributes['is_liked'] ?? false);
     }
 
 }

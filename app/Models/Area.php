@@ -27,4 +27,9 @@ class Area extends Model
     {
         return $this->hasMany(ListingBranch::class);
     }
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

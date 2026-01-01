@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Controllers\ListingBranchController;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,10 +17,14 @@ class OfferResource extends JsonResource
         $locale = app()->getLocale();
 
         return [
-            'id'                            =>$this->id,
-            'content'                       =>$this->getTranslation('content',$locale),
-            'image'                         =>asset('storage/'.$this->image),
-            'branch'                        =>new ListingBranchResource($this->whenLoaded('listingBranch')),
+            'id'                            => $this->id,
+            'content'                       => $this->getTranslation('content', $locale),
+            'image'                          => $this->image ? asset('storage/' . $this->image) : null,
+            'listing_id'                    => $this->listing_id,
+            'listing'                       => new ListingResource($this->whenLoaded('listing')),
+            'start_date'                    => $this->start_date ? $this->start_date->format('Y-m-d H:i:s') : null,
+            'end_date'                      => $this->end_date ? $this->end_date->format('Y-m-d H:i:s') : null,
+            'is_active'                     => $this->is_active,
         ];
     }
 }

@@ -15,6 +15,7 @@ class Offer extends Model
         'start_date',
         'end_date',
         'listing_id',
+        'listing_branch_id',
     ];
 
     protected $casts = [
@@ -27,6 +28,11 @@ class Offer extends Model
     public function listing()
     {
         return $this->belongsTo(Listing::class);
+    }
+
+    public function listingBranch()
+    {
+        return $this->belongsTo(ListingBranch::class, 'listing_branch_id');
     }
 
     public function getIsActiveAttribute()

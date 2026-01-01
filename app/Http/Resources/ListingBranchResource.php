@@ -17,16 +17,15 @@ class ListingBranchResource extends JsonResource
     {
         $locale = app()->getLocale();
         return [
-            'id'                            => $this->id,       
+            'id'                            => $this->id,
             'address'                       => $this->getTranslation('address', $locale),
-            'city'                          => new CityResource($this->whenLoaded('city')),
+            'area'                          => new AreaResource($this->whenLoaded('area')),
             'phone'                         => $this->phone,
             'phone_alt'                     => $this->phone_alt,
-            'location'                      => "https://maps.google.com/maps?q={$this->latitude},{$this->longitude}",
+            'location_url'                  => $this->location_url,
             'latitude'                      => number_format($this->latitude,10),
             'longitude'                     => number_format($this->longitude,10),
             'distance'                      => !is_null($this->distance) ? round($this->distance, 2) . " km" : null,
-            'listing'                       => new ListingResource($this->whenLoaded('listing')),
         ];
     }
 }

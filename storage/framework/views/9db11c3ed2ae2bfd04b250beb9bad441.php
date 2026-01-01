@@ -1,0 +1,15 @@
+<script src="<?php echo e(asset('backend/vendor/jquery/jquery-3.7.1.min.js')); ?>"></script>
+<script src="<?php echo e(asset('backend/js/theme-extractor.js')); ?>"></script>
+<script src="<?php echo e(asset('backend/vendor/bootstrap/js/bootstrap.bundle.min.js')); ?>"></script>
+<script src="<?php echo e(asset('backend/vendor/jquery-easing/jquery.easing.min.js')); ?>"></script>
+<script src="<?php echo e(asset('backend/vendor/datatables/jquery.dataTables.min.js')); ?>"></script>
+<script src="<?php echo e(asset('backend/vendor/datatables/dataTables.bootstrap4.min.js')); ?>"></script>
+<script src="<?php echo e(asset('backend/js/demo/datatables-demo.js')); ?>"></script>
+<script src="<?php echo e(asset('backend/js/jscolor.js')); ?>"></script>
+<script src="<?php echo e(asset('backend/js/jquery.timepicker.js')); ?>"></script>
+<script src="<?php echo e(asset('backend/js/jquery-ui.js')); ?>"></script>
+<script src="<?php echo e(asset('backend/js/summernote-bs4.min.js')); ?>"></script>
+<script src="<?php echo e(asset('backend/js/select2.min.js')); ?>"></script>
+<script src="<?php echo e(asset('backend/js/bootstrap4-toggle.min.js')); ?>"></script>
+<script src="<?php echo e(asset('backend/js/sweetalert2.min.js')); ?>"></script>
+<?php /**PATH /home/khaled/projects/dalel-madinaty/resources/views/components/dashboard/scripts-header.blade.php ENDPATH**/ ?>
