@@ -4,19 +4,12 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use App\Models\City;
 use App\Models\Amenity;
 use App\Models\Listing;
 use App\Models\ListingImage;
 use App\Models\Option;
-use App\Models\OptionValue;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rule;
-use Laravolt\Avatar\Facade as Avatar;
 
 use Throwable;
 

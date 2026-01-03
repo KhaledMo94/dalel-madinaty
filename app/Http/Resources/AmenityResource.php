@@ -21,6 +21,7 @@ class AmenityResource extends JsonResource
             'description'       =>$this->getTranslation('description',$locale),
             'image'             =>$this->image ? asset('storage/'.$this->image) : null ,
             'listings'          =>ListingResource::collection($this->whenLoaded('listings')),
+            'categories'        =>CategoryResource::collection($this->whenLoaded('categories')),
         ];
     }
 }

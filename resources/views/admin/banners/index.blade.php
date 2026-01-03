@@ -36,17 +36,19 @@
                                         <p>{{ __('No image') }}</p>
                                     </td>
                                 @endif
-                                <td class="d-flex justify-content-center">
-                                    <a href="{{ route('admins.banners.edit', $banner->id) }}"
-                                        class="mx-1 btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
-                                    <form id="delete-form-{{ $banner->id }}" action="{{ route('admins.banners.destroy', $banner->id) }}"
-                                        method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="mx-1 btn btn-danger btn-sm"
-                                            onclick="confirmDelete({{ $banner->id }}); event.preventDefault(); ">
-                                            <i class="fas fa-trash-alt"></i></button>
-                                    </form>
+                                <td >
+                                    <div class="d-flex justify-content-center">
+                                        <a href="{{ route('admins.banners.edit', $banner->id) }}"
+                                            class="mx-1 btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+                                        <form id="delete-form-{{ $banner->id }}" action="{{ route('admins.banners.destroy', $banner->id) }}"
+                                            method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="mx-1 btn btn-danger btn-sm"
+                                                onclick="confirmDelete({{ $banner->id }}); event.preventDefault(); ">
+                                                <i class="fas fa-trash-alt"></i></button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

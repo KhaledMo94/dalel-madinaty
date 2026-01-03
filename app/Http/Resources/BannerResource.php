@@ -18,6 +18,7 @@ class BannerResource extends JsonResource
         return [
             'title'                     => $this->getTranslation('title', $locale) ?? '',
             'image'                     => asset('storage/' . $this->image),
+            'listing'                   => new ListingResource($this->whenLoaded('listing')),
         ];
     }
 }

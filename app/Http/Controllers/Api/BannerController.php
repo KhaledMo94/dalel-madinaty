@@ -12,6 +12,6 @@ class BannerController extends Controller
 {
     public function index(Request $request)
     {
-        return BannerResource::collection(Banner::get());
+        return BannerResource::collection(Banner::latest()->with('listing')->get());
     }
 }

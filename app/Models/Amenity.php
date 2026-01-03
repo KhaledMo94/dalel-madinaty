@@ -37,6 +37,6 @@ class Amenity extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class , 'amenity_categories');
+        return $this->belongsToMany(Category::class , AmenityCategory::class);
     }
 }
